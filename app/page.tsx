@@ -1,19 +1,27 @@
+'use client'
 import Image from 'next/image'
+import { listenerCount } from 'process'
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react'
+import { useCustomHook } from '../hook/useCustomHook'
+import { useTodoState } from '../hook/useTodoState'
 import styles from './page.module.css'
+import { Welcome } from './Welcome'
 
 export default function Home() {
+  const {handleClick, notUpdatingValue, costlyValue} = useCustomHook(2)
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js 13!</a>
-        </h1>
+        <button onClick={handleClick}>Update {notUpdatingValue.current}</button>
+        <Welcome styles={styles} />
 
+
+        {costlyValue}
         <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>app/page.tsx</code>
         </p>
-
+    {costlyValue}
         <div className={styles.grid}>
           <a href="https://beta.nextjs.org/docs" className={styles.card}>
             <h2>Documentation &rarr;</h2>
@@ -34,6 +42,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className={styles.card}
           >
+          {costlyValue}
             <h2>Deploy &rarr;</h2>
             <p>Deploy your Next.js site to a public URL with Vercel.</p>
           </a>
